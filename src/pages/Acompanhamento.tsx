@@ -5,13 +5,13 @@ import { Badge } from "@/components/ui/badge";
 
 const Acompanhamento = () => {
   const moodHistory = [
-    { date: "Seg", mood: 4 },
-    { date: "Ter", mood: 3 },
-    { date: "Qua", mood: 5 },
-    { date: "Qui", mood: 4 },
-    { date: "Sex", mood: 4 },
-    { date: "Sáb", mood: 5 },
-    { date: "Dom", mood: 4 },
+    { date: "Seg", mood: 5 },
+    { date: "Ter", mood: 2 },
+    { date: "Qua", mood: 3 },
+    { date: "Qui", mood: 1 },
+    { date: "Sex", mood: 5 },
+    { date: "Sáb", mood: 4 },
+    { date: "Dom", mood: 3 },
   ];
 
   const symptoms = [
@@ -22,7 +22,8 @@ const Acompanhamento = () => {
   ];
 
   const getMoodColor = (mood: number) => {
-    if (mood <= 2) return "bg-mood-very-sad";
+    if (mood === 1) return "bg-mood-very-sad";
+    if (mood === 2) return "bg-mood-sad";
     if (mood === 3) return "bg-mood-neutral";
     if (mood === 4) return "bg-mood-happy";
     return "bg-mood-very-happy";
@@ -58,10 +59,10 @@ const Acompanhamento = () => {
 
       <Card className="p-6 shadow-md">
         <h2 className="text-lg font-semibold text-foreground mb-4">Humor da semana</h2>
-        <div className="flex items-end gap-3 h-48">
+        <div className="flex items-end gap-3 h-48 w-full">
           {moodHistory.map((day, index) => (
-            <div key={index} className="flex-1 flex flex-col items-center gap-2">
-              <div className="flex-1 flex items-end w-full">
+            <div key={index} className="flex-1 flex flex-col items-center justify-end gap-2 h-full">
+              <div className="h-full flex items-end w-full">
                 <div
                   className={`w-full rounded-t-lg transition-all ${getMoodColor(day.mood)}`}
                   style={{ height: `${(day.mood / 5) * 100}%` }}
@@ -103,10 +104,10 @@ const Acompanhamento = () => {
         <p className="text-sm text-muted-foreground mb-4">
           Histórico dos últimos 6 meses
         </p>
-        <div className="h-48 flex items-end gap-4">
-          {[60, 45, 30, 20, 15, 10].map((value, index) => (
-            <div key={index} className="flex-1 flex flex-col items-center gap-2">
-              <div className="flex-1 flex items-end w-full">
+        <div className="h-48 flex items-end gap-4 w-full">
+          {[60, 50, 35, 38, 29, 22].map((value, index) => (
+            <div key={index} className="flex-1 flex flex-col items-center justify-end gap-2 h-full">
+              <div className="h-full flex items-end w-full">
                 <div
                   className="w-full rounded-t-lg bg-gradient-to-t from-primary to-primary/60"
                   style={{ height: `${(value / 60) * 100}%` }}

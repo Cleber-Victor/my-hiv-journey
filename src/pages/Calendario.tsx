@@ -8,10 +8,38 @@ import MoodSelector from "@/components/MoodSelector";
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays } from "lucide-react";
 
+interface DailyRecord {
+  id: number;
+  date: Date;
+  mood: number;
+  symptoms: string[];
+}
+
 const Calendario = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [mood, setMood] = useState(3);
   const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [records, setRecords] = useState<DailyRecord[]>([
+    {
+      id: 1,
+      date: new Date(Date.now() - 86400000),
+      mood: 4,
+      symptoms: ["Fadiga", "Dor de cabeça"]
+    },
+    {
+      id: 2,
+      date: new Date(Date.now() - 2 * 86400000),
+      mood: 4,
+      symptoms: ["Fadiga", "Dor de cabeça"]
+    },
+    {
+      id: 3,
+      date: new Date(Date.now() - 3 * 86400000),
+      mood: 4,
+      symptoms: ["Fadiga", "Dor de cabeça"]
+    }
+  ]);
 
   const symptoms = [
     "Fadiga", "Dor de cabeça", "Náusea", "Febre",
@@ -24,6 +52,20 @@ const Calendario = () => {
         ? prev.filter(s => s !== symptom)
         : [...prev, symptom]
     );
+  };
+
+  const handleSaveRecord = () => {
+    const newRecord: DailyRecord = {
+      id: Date.now(),
+      date: date || new Date(),
+      mood: mood,
+      symptoms: [...selectedSymptoms]
+    };
+    
+    setRecords(prev => [newRecord, ...prev]);
+    setMood(3);
+    setSelectedSymptoms([]);
+    setIsDialogOpen(false);
   };
 
   return (
@@ -42,7 +84,7 @@ const Calendario = () => {
         />
       </Card>
 
-      <Dialog>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button size="lg" className="w-full font-semibold shadow-md">
             Registrar dia de hoje
@@ -79,7 +121,7 @@ const Calendario = () => {
             </div>
 
 
-            <Button className="w-full" size="lg">
+            <Button className="w-full" size="lg" onClick={handleSaveRecord}>
               Salvar registro
             </Button>
           </div>
@@ -89,19 +131,20 @@ const Calendario = () => {
       <div>
         <h2 className="text-lg font-semibold text-foreground mb-3">Últimos registros</h2>
         <div className="space-y-3">
-          {[1, 2, 3].map((i) => (
-            <Card key={i} className="p-4 shadow-sm">
+          {records.map((record) => (
+            <Card key={record.id} className="p-4 shadow-sm">
               <div className="flex items-center justify-between mb-2">
                 <p className="font-medium text-foreground">
-                  {new Date(Date.now() - i * 86400000).toLocaleDateString('pt-BR')}
+                  {record.date.toLocaleDateString('pt-BR')}
                 </p>
                 <Badge variant="outline" className="bg-mood-happy/20 text-mood-happy border-mood-happy/30">
-                  Humor: 4
+                  Humor: {record.mood}
                 </Badge>
               </div>
               <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary">Fadiga</Badge>
-                <Badge variant="secondary">Dor de cabeça</Badge>
+                {record.symptoms.map((symptom, idx) => (
+                  <Badge key={idx} variant="secondary">{symptom}</Badge>
+                ))}
               </div>
             </Card>
           ))}

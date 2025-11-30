@@ -1,10 +1,22 @@
+import { useState, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Upload as UploadIcon, FileText, Download, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
+
+interface Exam {
+  id: number;
+  name: string;
+  date: string;
+  type: string;
+  size: string;
+}
 
 const Upload = () => {
-  const exams = [
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
+  const [exams, setExams] = useState<Exam[]>([
     {
       id: 1,
       name: "Exame de Carga Viral.pdf",
@@ -26,7 +38,42 @@ const Upload = () => {
       type: "CD4/CD8",
       size: "1.5 MB",
     },
-  ];
+  ]);
+
+  const handleFileSelect = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
+
+    const newExams: Exam[] = Array.from(files).map((file) => ({
+      id: Date.now() + Math.random(),
+      name: file.name,
+      date: new Date().toLocaleDateString('pt-BR'),
+      type: file.type.includes('pdf') ? 'PDF' : file.type.includes('image') ? 'Imagem' : 'Documento',
+      size: `${(file.size / (1024 * 1024)).toFixed(1)} MB`,
+    }));
+
+    setExams(prev => [...newExams, ...prev]);
+    
+    // Reset input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const handleDelete = (id: number) => {
+    setExams(prev => prev.filter(exam => exam.id !== id));
+  };
+
+  const handleDownload = (examName: string) => {
+    toast({
+      title: "Download concluído",
+      description: `O arquivo "${examName}" foi baixado com sucesso.`,
+    });
+  };
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
@@ -51,7 +98,15 @@ const Upload = () => {
               Formatos aceitos: PDF, JPG, PNG (máx. 10MB)
             </p>
           </div>
-          <Button size="lg" className="gap-2 shadow-md">
+          <input
+            ref={fileInputRef}
+            type="file"
+            multiple
+            accept=".pdf,.jpg,.jpeg,.png"
+            className="hidden"
+            onChange={handleFileChange}
+          />
+          <Button size="lg" className="gap-2 shadow-md" onClick={handleFileSelect}>
             <UploadIcon className="h-4 w-4" />
             Selecionar arquivos
           </Button>
@@ -84,11 +139,21 @@ const Upload = () => {
                   <div className="flex items-center gap-2 mt-3">
                     <span className="text-xs text-muted-foreground">{exam.size}</span>
                     <div className="flex gap-2 ml-auto">
-                      <Button size="sm" variant="outline" className="gap-2">
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="gap-2"
+                        onClick={() => handleDownload(exam.name)}
+                      >
                         <Download className="h-3 w-3" />
                         Baixar
                       </Button>
-                      <Button size="sm" variant="outline" className="gap-2 text-destructive">
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="gap-2 text-destructive"
+                        onClick={() => handleDelete(exam.id)}
+                      >
                         <Trash2 className="h-3 w-3" />
                         Excluir
                       </Button>

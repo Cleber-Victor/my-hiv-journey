@@ -24,7 +24,7 @@ const Calendario = () => {
     {
       id: 1,
       date: new Date(Date.now() - 86400000),
-      mood: 4,
+      mood: 2,
       symptoms: ["Fadiga", "Dor de cabeça"]
     },
     {
@@ -36,22 +36,29 @@ const Calendario = () => {
     {
       id: 3,
       date: new Date(Date.now() - 3 * 86400000),
-      mood: 4,
+      mood: 3,
       symptoms: ["Fadiga", "Dor de cabeça"]
     }
   ]);
 
   const symptoms = [
+    "Nenhum sintoma",
     "Fadiga", "Dor de cabeça", "Náusea", "Febre",
     "Dor muscular", "Insônia", "Tontura", "Dor abdominal"
   ];
 
   const toggleSymptom = (symptom: string) => {
-    setSelectedSymptoms(prev =>
-      prev.includes(symptom)
-        ? prev.filter(s => s !== symptom)
-        : [...prev, symptom]
-    );
+    if (symptom === "Nenhum sintoma") {
+      setSelectedSymptoms([]);
+      return;
+    }
+    
+    setSelectedSymptoms(prev => {
+      const filtered = prev.filter(s => s !== "Nenhum sintoma");
+      return filtered.includes(symptom)
+        ? filtered.filter(s => s !== symptom)
+        : [...filtered, symptom];
+    });
   };
 
   const handleSaveRecord = () => {
@@ -102,21 +109,30 @@ const Calendario = () => {
             </div>
 
             <div>
-              <Label className="text-base font-semibold mb-3 block">Sintomas</Label>
+              <Label className="text-base font-semibold mb-3 block">Como está se sentindo?</Label>
               <div className="grid grid-cols-2 gap-3">
-                {symptoms.map((symptom) => (
-                  <button
-                    key={symptom}
-                    onClick={() => toggleSymptom(symptom)}
-                    className={`p-3 rounded-lg border-2 text-sm transition-all ${
-                      selectedSymptoms.includes(symptom)
-                        ? "border-primary bg-secondary text-primary font-medium"
-                        : "border-border bg-card hover:border-primary/50"
-                    }`}
-                  >
-                    {symptom}
-                  </button>
-                ))}
+                {symptoms.map((symptom) => {
+                  const isNone = symptom === "Nenhum sintoma";
+                  const isSelected = isNone 
+                    ? selectedSymptoms.length === 0 
+                    : selectedSymptoms.includes(symptom);
+                  
+                  return (
+                    <button
+                      key={symptom}
+                      onClick={() => toggleSymptom(symptom)}
+                      className={`p-3 rounded-lg border-2 text-sm transition-all ${
+                        isSelected
+                          ? isNone
+                            ? "border-accent bg-accent/10 text-accent font-medium"
+                            : "border-primary bg-secondary text-primary font-medium"
+                          : "border-border bg-card hover:border-primary/50"
+                      } ${isNone ? "col-span-2" : ""}`}
+                    >
+                      {symptom}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -142,9 +158,15 @@ const Calendario = () => {
                 </Badge>
               </div>
               <div className="flex flex-wrap gap-2">
-                {record.symptoms.map((symptom, idx) => (
-                  <Badge key={idx} variant="secondary">{symptom}</Badge>
-                ))}
+                {record.symptoms.length === 0 ? (
+                  <Badge variant="outline" className="bg-accent/10 text-accent border-accent/30">
+                    Nenhum sintoma
+                  </Badge>
+                ) : (
+                  record.symptoms.map((symptom, idx) => (
+                    <Badge key={idx} variant="secondary">{symptom}</Badge>
+                  ))
+                )}
               </div>
             </Card>
           ))}

@@ -59,18 +59,28 @@ const Acompanhamento = () => {
 
       <Card className="p-6 shadow-md">
         <h2 className="text-lg font-semibold text-foreground mb-4">Humor da semana</h2>
-        <div className="flex items-end gap-3 h-48 w-full">
-          {moodHistory.map((day, index) => (
-            <div key={index} className="flex-1 flex flex-col items-center justify-end gap-2 h-full">
-              <div className="h-full flex items-end w-full">
-                <div
-                  className={`w-full rounded-t-lg transition-all ${getMoodColor(day.mood)}`}
-                  style={{ height: `${(day.mood / 5) * 100}%` }}
-                />
+        <div className="flex gap-2">
+          <div className="flex flex-col justify-between items-end pr-2 h-44 text-xs text-muted-foreground">
+            <span>5</span>
+            <span>4</span>
+            <span>3</span>
+            <span>2</span>
+            <span>1</span>
+            <span>0</span>
+          </div>
+          <div className="flex items-end gap-3 h-48 flex-1">
+            {moodHistory.map((day, index) => (
+              <div key={index} className="flex-1 flex flex-col items-center justify-end gap-2 h-full">
+                <div className="h-full flex items-end w-full">
+                  <div
+                    className={`w-full rounded-t-lg transition-all ${getMoodColor(day.mood)}`}
+                    style={{ height: `${(day.mood / 5) * 100}%` }}
+                  />
+                </div>
+                <span className="text-xs text-muted-foreground font-medium">{day.date}</span>
               </div>
-              <span className="text-xs text-muted-foreground font-medium">{day.date}</span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </Card>
 
@@ -102,22 +112,36 @@ const Acompanhamento = () => {
       <Card className="p-6 shadow-md bg-gradient-card">
         <h2 className="text-lg font-semibold text-foreground mb-3">Carga viral</h2>
         <p className="text-sm text-muted-foreground mb-4">
-          Histórico dos últimos 6 meses
+          Histórico dos últimos 6 meses (escala logarítmica - cópias/ml)
         </p>
-        <div className="h-48 flex items-end gap-4 w-full">
-          {[60, 50, 35, 38, 29, 22].map((value, index) => (
-            <div key={index} className="flex-1 flex flex-col items-center justify-end gap-2 h-full">
-              <div className="h-full flex items-end w-full">
-                <div
-                  className="w-full rounded-t-lg bg-gradient-to-t from-primary to-primary/60"
-                  style={{ height: `${(value / 60) * 100}%` }}
-                />
-              </div>
-              <span className="text-xs text-muted-foreground font-medium">
-                {`Mês ${index + 1}`}
-              </span>
-            </div>
-          ))}
+        <div className="flex gap-2">
+          <div className="flex flex-col justify-between items-end pr-2 h-44 text-xs text-muted-foreground">
+            <span>1M+</span>
+            <span>100k</span>
+            <span>10k</span>
+            <span>1k</span>
+            <span>100</span>
+            <span>10</span>
+            <span>1</span>
+          </div>
+          <div className="flex items-end gap-4 h-48 flex-1 w-full">
+            {[1200000, 550000, 110000, 65000, 7000, 47].map((value, index) => {
+              const logHeight = (Math.log10(value + 1) / Math.log10(1000001)) * 100;
+              return (
+                <div key={index} className="flex-1 flex flex-col items-center justify-end gap-2 h-full">
+                  <div className="h-full flex items-end w-full">
+                    <div
+                      className="w-full rounded-t-lg bg-gradient-to-t from-primary to-primary/60"
+                      style={{ height: `${logHeight}%` }}
+                    />
+                  </div>
+                  <span className="text-xs text-muted-foreground font-medium">
+                    {`Mês ${index + 1}`}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </Card>
     </div>

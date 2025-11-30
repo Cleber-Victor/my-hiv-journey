@@ -21,10 +21,9 @@ const Layout = ({ children }: LayoutProps) => {
       <header className="bg-card border-b border-border sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src={logo} alt="Ema nexo" className="h-12 w-12" />
+            <img src={logo} alt="I=I Inde." className="h-20 w-20" />
             <div>
-              <h1 className="text-lg font-bold text-primary">Ema nexo</h1>
-              <p className="text-xs text-muted-foreground">I=I Inde.</p>
+              <h1 className="text-lg font-bold text-primary">I=I Inde.</h1>
             </div>
           </div>
         </div>

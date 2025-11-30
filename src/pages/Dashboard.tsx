@@ -29,7 +29,7 @@ const Dashboard = () => {
         />
         <MetricCard
           title="Humor médio"
-          value="4.2"
+          value="3.3"
           subtitle="Última semana"
           icon={<Heart className="h-6 w-6" />}
           variant="default"
@@ -43,14 +43,14 @@ const Dashboard = () => {
         </h3>
         <div className="flex justify-between items-center gap-2">
           <div className="flex flex-col items-center">
-            <div className="w-12 h-12 rounded-full bg-mood-happy flex items-center justify-center mb-1">
+            <div className="w-12 h-12 rounded-full bg-mood-very-happy flex items-center justify-center mb-1">
               <span className="text-white font-semibold">5</span>
             </div>
             <span className="text-xs text-muted-foreground">Seg</span>
           </div>
           <div className="flex flex-col items-center">
-            <div className="w-12 h-12 rounded-full bg-mood-happy flex items-center justify-center mb-1">
-              <span className="text-white font-semibold">4</span>
+            <div className="w-12 h-12 rounded-full bg-mood-sad flex items-center justify-center mb-1">
+              <span className="text-white font-semibold">2</span>
             </div>
             <span className="text-xs text-muted-foreground">Ter</span>
           </div>
@@ -61,8 +61,8 @@ const Dashboard = () => {
             <span className="text-xs text-muted-foreground">Qua</span>
           </div>
           <div className="flex flex-col items-center">
-            <div className="w-12 h-12 rounded-full bg-mood-happy flex items-center justify-center mb-1">
-              <span className="text-white font-semibold">4</span>
+            <div className="w-12 h-12 rounded-full bg-mood-very-sad flex items-center justify-center mb-1">
+              <span className="text-white font-semibold">1</span>
             </div>
             <span className="text-xs text-muted-foreground">Qui</span>
           </div>

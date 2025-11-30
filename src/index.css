@@ -44,11 +44,11 @@ All colors MUST be HSL.
 
     --radius: 1rem;
 
-    --mood-very-sad: 280 65% 60%;
-    --mood-sad: 25 75% 60%;
-    --mood-neutral: 200 50% 70%;
-    --mood-happy: 165 55% 65%;
-    --mood-very-happy: 140 60% 60%;
+    --mood-very-sad: 0 70% 60%;        /* vermelho levemente intenso */
+    --mood-sad: 30 80% 55%;            /* laranja */
+    --mood-neutral: 50 70% 50%;        /* amarelo suave */
+    --mood-happy: 210 45% 65%;         /* azul levemente suave */
+    --mood-very-happy: 140 70% 50%;    /* verde intenso */
 
     --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(340 75% 65%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(340 75% 98%) 100%);

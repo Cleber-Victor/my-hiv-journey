@@ -44,13 +44,13 @@ const Acompanhamento = () => {
         />
         <MetricCard
           title="Humor médio"
-          value="4.1"
+          value="3.3"
           subtitle="Última semana"
           icon={<TrendingUp className="h-6 w-6" />}
         />
         <MetricCard
           title="Dias registrados"
-          value="24/30"
+          value="26/30"
           subtitle="Este mês"
           icon={<BarChart3 className="h-6 w-6" />}
         />

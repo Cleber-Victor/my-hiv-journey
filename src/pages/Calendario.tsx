@@ -82,7 +82,7 @@ const Calendario = () => {
         <h1 className="text-2xl font-bold text-foreground">Registro Diário</h1>
       </div>
 
-      <Card className="p-6 shadow-md">
+      <Card className="p-6 shadow-md flex justify-center items-center">
         <Calendar
           mode="single"
           selected={date}

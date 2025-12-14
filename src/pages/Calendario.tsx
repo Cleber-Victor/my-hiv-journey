@@ -52,7 +52,7 @@ const Calendario = () => {
       setSelectedSymptoms([]);
       return;
     }
-    
+
     setSelectedSymptoms(prev => {
       const filtered = prev.filter(s => s !== "Nenhum sintoma");
       return filtered.includes(symptom)
@@ -68,7 +68,7 @@ const Calendario = () => {
       mood: mood,
       symptoms: [...selectedSymptoms]
     };
-    
+
     setRecords(prev => [newRecord, ...prev]);
     setMood(3);
     setSelectedSymptoms([]);
@@ -76,32 +76,52 @@ const Calendario = () => {
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-500">
-      <div className="flex items-center gap-3">
-        <CalendarDays className="h-6 w-6 text-primary" />
-        <h1 className="text-2xl font-bold text-foreground">Registro Diário</h1>
-      </div>
+      <div className="space-y-6 animate-in fade-in duration-500">
 
-      <Card className="p-6 shadow-md flex justify-center items-center">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          className="rounded-lg border-0"
-        />
-      </Card>
+        <div className="flex flex-col items-center gap-3">
+          <div className="flex items-center gap-3">
+            <CalendarDays className="h-6 w-6 text-primary" />
+            <h1 className="text-2xl font-bold text-foreground">Registro Diário</h1>
+          </div>
 
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger asChild>
-          <Button size="lg" className="w-full font-semibold shadow-md">
-            Registrar dia de hoje
-          </Button>
-        </DialogTrigger>
+          <Card className="shadow-md w-full max-w-[400px] p-0 overflow-hidden rounded-lg">
+            <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                className="w-full border-0 p-2"
+                classNames={{
+                  months: "w-full flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 flex-1",
+                  month: "space-y-4 w-full flex flex-col",
+                  table: "w-full border-collapse space-y-1",
+                  head_row: "flex w-full",
+                  row: "flex w-full mt-2",
+                  cell: "text-center flex-1 p-0 relative focus-within:relative focus-within:z-20",
+                  day: "h-9 w-9 p-0 font-normal aria-selected:opacity-100 rounded-full hover:bg-accent hover:text-accent-foreground",
+                  head_cell: "text-muted-foreground rounded-md w-full font-normal text-[0.8rem]",
+                  day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+                  day_today: "bg-accent text-accent-foreground",
+                  day_outside: "text-muted-foreground opacity-50",
+                  day_disabled: "text-muted-foreground opacity-50",
+                  day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
+                  day_hidden: "invisible",
+                }}
+            />
+          </Card>
+        </div>
+
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <Button size="lg" className="w-full max-w-[400px] font-semibold shadow-md mx-auto flex items-center justify-center gap-2">
+              Registrar dia de hoje
+            </Button>
+          </DialogTrigger>
+
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl">Como você está hoje?</DialogTitle>
           </DialogHeader>
-          
+
           <div className="space-y-6 pt-4">
             <div>
               <Label className="text-base font-semibold mb-4 block">Seu humor</Label>
@@ -113,10 +133,10 @@ const Calendario = () => {
               <div className="grid grid-cols-2 gap-3">
                 {symptoms.map((symptom) => {
                   const isNone = symptom === "Nenhum sintoma";
-                  const isSelected = isNone 
-                    ? selectedSymptoms.length === 0 
+                  const isSelected = isNone
+                    ? selectedSymptoms.length === 0
                     : selectedSymptoms.includes(symptom);
-                  
+
                   return (
                     <button
                       key={symptom}

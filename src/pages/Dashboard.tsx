@@ -22,7 +22,7 @@ const Dashboard = () => {
             <p className="text-white/90 text-sm">Como você está se sentindo hoje?</p>
           </div>
           <NavLink to="/calendario">
-            <Button variant="secondary" size="lg" className="font-semibold">
+            <Button variant="secondary" size="lg" className="font-semibold text-sm md:text-base px-3 md:px-6 py-2 md:py-3">
               Registrar
             </Button>
           </NavLink>
@@ -62,46 +62,46 @@ const Dashboard = () => {
           <Heart className="h-5 w-5 text-primary" />
           Humor da semana
         </h3>
-        <div className="flex justify-between items-center gap-2">
+        <div className="flex justify-around items-center gap-1 md:gap-2">
           <div className="flex flex-col items-center">
-            <div className="w-12 h-12 rounded-full bg-mood-very-happy flex items-center justify-center mb-1">
-              <span className="text-white font-semibold">5</span>
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-mood-very-happy flex items-center justify-center mb-1">
+              <span className="text-white font-semibold text-sm md:text-base">5</span>
             </div>
             <span className="text-xs text-muted-foreground">Seg</span>
           </div>
           <div className="flex flex-col items-center">
-            <div className="w-12 h-12 rounded-full bg-mood-sad flex items-center justify-center mb-1">
-              <span className="text-white font-semibold">2</span>
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-mood-sad flex items-center justify-center mb-1">
+              <span className="text-white font-semibold text-sm md:text-base">2</span>
             </div>
             <span className="text-xs text-muted-foreground">Ter</span>
           </div>
           <div className="flex flex-col items-center">
-            <div className="w-12 h-12 rounded-full bg-mood-neutral flex items-center justify-center mb-1">
-              <span className="text-white font-semibold">3</span>
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-mood-neutral flex items-center justify-center mb-1">
+              <span className="text-white font-semibold text-sm md:text-base">3</span>
             </div>
             <span className="text-xs text-muted-foreground">Qua</span>
           </div>
           <div className="flex flex-col items-center">
-            <div className="w-12 h-12 rounded-full bg-mood-very-sad flex items-center justify-center mb-1">
-              <span className="text-white font-semibold">1</span>
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-mood-very-sad flex items-center justify-center mb-1">
+              <span className="text-white font-semibold text-sm md:text-base">1</span>
             </div>
             <span className="text-xs text-muted-foreground">Qui</span>
           </div>
           <div className="flex flex-col items-center">
-            <div className="w-12 h-12 rounded-full bg-mood-very-happy flex items-center justify-center mb-1">
-              <span className="text-white font-semibold">5</span>
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-mood-very-happy flex items-center justify-center mb-1">
+              <span className="text-white font-semibold text-sm md:text-base">5</span>
             </div>
             <span className="text-xs text-muted-foreground">Sex</span>
           </div>
           <div className="flex flex-col items-center">
-            <div className="w-12 h-12 rounded-full bg-mood-happy flex items-center justify-center mb-1">
-              <span className="text-white font-semibold">4</span>
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-mood-happy flex items-center justify-center mb-1">
+              <span className="text-white font-semibold text-sm md:text-base">4</span>
             </div>
             <span className="text-xs text-muted-foreground">Sáb</span>
           </div>
           <div className="flex flex-col items-center">
-            <div className="w-12 h-12 rounded-full bg-mood-neutral flex items-center justify-center mb-1">
-              <span className="text-white font-semibold">3</span>
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-mood-neutral flex items-center justify-center mb-1">
+              <span className="text-white font-semibold text-sm md:text-base">3</span>
             </div>
             <span className="text-xs text-muted-foreground">Dom</span>
           </div>

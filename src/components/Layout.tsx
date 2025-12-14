@@ -41,13 +41,13 @@ const Layout = ({ children }: LayoutProps) => {
       </main>
 
       <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border shadow-lg">
-        <div className="container mx-auto px-2">
+        <div className="container mx-auto px-4">
           <div className="flex justify-around items-center py-2">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
-                className="flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-all"
+                className="flex flex-col items-center gap-1 px-2 md:px-4 py-2 rounded-lg transition-all"
                 activeClassName="text-primary bg-secondary"
               >
                 {({ isActive }) => (
